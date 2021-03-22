@@ -1,5 +1,16 @@
 const pool = require("../database/db")
-
+exports.getHome = async (req, res) => {
+    try {
+        const user = await pool.query(
+            "SELECT user_name FROM users WHERE user_id = $1",
+            [req.user.id]
+        );
+        res.json(user.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+}
 exports.createTodo = async (req, res) => {
     try {
         const { description } = req.body;
@@ -7,6 +18,7 @@ exports.createTodo = async (req, res) => {
         res.json(todo.rows[0]);
     } catch (error) {
         console.error(error.message);
+        res.status(500).send("Server Error...");
     }
 };
 exports.getTodos = async (req, res) => {
@@ -15,6 +27,7 @@ exports.getTodos = async (req, res) => {
         res.json(all_todos.rows);
     } catch (error) {
         console.error(error.message);
+        res.status(500).send("Server Error...");
     }
 }
 exports.getTodo = async (req, res) => {
@@ -24,6 +37,7 @@ exports.getTodo = async (req, res) => {
         res.json(todo.rows[0]);
     } catch (error) {
         console.error(error.message);
+        res.status(500).send("Server Error...");
     }
 }
 exports.updateTodo = async (req, res) => {
@@ -34,14 +48,16 @@ exports.updateTodo = async (req, res) => {
         res.json("Updated...");
     } catch (error) {
         console.error(error.message);
+        res.status(500).send("Server Error...");
     }
 }
-exports.deleteTodo = async(req, res) => {
+exports.deleteTodo = async (req, res) => {
     try {
         const todo_id = req.params.id;
         await pool.query("DELETE FROM todo WHERE id = $1", [todo_id]);
         res.json("Deleted!");
     } catch (error) {
         console.error(error.message);
+        res.status(500).send("Server Error...");
     }
 }
