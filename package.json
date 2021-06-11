@@ -4,7 +4,8 @@
   "description": "TODO API with PostgreSQL",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.7",
+    "mongoose": "^5.12.11",
     "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
